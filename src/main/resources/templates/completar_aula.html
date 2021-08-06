@@ -22,7 +22,7 @@
 					<div class="col-md-4">
 						<label for="curso" class="form-check-label">Curso</label> 
 						<select th:field="*{curso}" class="form-select" aria-label="multiple select example" >
-							<option th:each="c : ${cursos}" selected th:text="${c.nombre}"
+							<option th:each="c : ${cursos}" selected th:text="${c.nombre} +  ' - ' + ${c.anioLectivo}"
 								th:value="${c.id}">Seleccione el curso</option>
 						</select>
 						<label for="alumno" class="form-check-label">Alumnos</label> 
@@ -32,7 +32,7 @@
 						</select>
 						<label for="materiaDocenteCur" class="form-check-label">Docente-Materias</label> 
 						<select th:field="*{materiaDocenteCurso}" class="form-select" aria-label="multiple select example" multiple>
-							<option th:each="c : ${materiaDocenteCurso}" selected th:text="${c.docente.nombre} +  ' - ' + ${c.materia.nombre} +  ' - ' + ${c.curso.nombre} "
+							<option th:each="c : ${materiaDocenteCurso}" selected th:text="${c.docente.nombre} + ' - ' + ${c.materia.nombre} +  ' - ' + ${c.curso.nombre} "
 								th:value="${c.id}">Seleccione docente-materia</option>
 						</select>						
 					</div>
@@ -51,7 +51,7 @@
 					<table class="table table-bordered table-striped mb-0">
 						<thead>
 							<tr>
-								<th scope="col">Id</th>
+								<th scope="col">Año</th>
 								<th scope="col">Curso</th>
 								<th scope="col">Alumnos</th>
 								<th scope="col">Docentes</th>
@@ -60,14 +60,14 @@
 						</thead>
 						<tbody>
 							<tr th:each="m:${aulas}" >
-								<th scope="row" th:text="${m.id}"></th>	
+								<th scope="row" th:text="${m.curso.anioLectivo}"></th>	
 								<td th:text="${m.curso.nombre}"></td>
 								<td><span th:each="al:${m.alumnos}" th:text="${al.nombre} + ' , ' "></span></td>
 								<td><span th:each="doc:${m.materiaDocenteCurso}" th:text="${doc.docente.nombre} + ' - ' + ${doc.materia.nombre} + ' ; ' "></span></td>
 								<td><a class="btn btn-outline-warning"
 									th:href="@{/administrador/completarAula/editar/}+${m.id}" role="button">Editar</a>
 									<a class="btn btn-outline-danger"
-									th:href="@{/administrador/completarAula/eliminar(id=${m.id})}" role="button">Eliminar</a></td>
+									th:href="@{/administrador/completarAula/eliminar/}+${m.id}" role="button">Eliminar</a></td>
 							</tr>
 						</tbody>
 					</table>

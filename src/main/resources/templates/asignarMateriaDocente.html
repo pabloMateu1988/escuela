@@ -23,17 +23,18 @@
 						<label for="curso" class="form-check-label">Curso</label> 
 						<select th:field="*{curso}" class="form-select" aria-label="multiple select example">
 							<option th:each="c : ${cursos}" selected th:text="${c.nombre}"
-								th:value="${c.id}">Seleccione el curso</option>
+								th:value="${c.id}"></option>
 						</select>
 						<label for="materia" class="form-check-label">Materia</label> 
 						<select th:field="*{materia}" class="form-select" aria-label="multiple select example">
 							<option th:each="c : ${materias}" selected th:text="${c.nombre}"
-								th:value="${c.id}">Seleccione la materia</option>
+								th:value="${c.id}"></option>
+								
 						</select>
 						<label for="docente" class="form-check-label">Docente</label> 
 						<select th:field="*{docente}" class="form-select" aria-label="multiple select example">
 							<option th:each="c : ${docentes}" selected th:text="${c.nombre}"
-								th:value="${c.id}">Seleccione el docente</option>
+								th:value="${c.id}"></option>
 						</select>						
 					</div>
 					<button type="submit" th:href="@{/administrador/asignar}"
@@ -67,7 +68,7 @@
 								<td><a class="btn btn-outline-warning"
 									th:href="@{/administrador/asignar/editar/}+${m.id}" role="button">Editar</a>
 									<a class="btn btn-outline-danger"
-									th:href="@{/administrador/asignar/eliminar(id=${m.id})}" role="button">Eliminar</a></td>
+									th:href="@{/administrador/asignar/eliminar/}+${m.id}" role="button">Eliminar</a></td>
 							</tr>
 						</tbody>
 					</table>

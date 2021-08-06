@@ -1,14 +1,12 @@
 package com.system.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,20 +16,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Asistencia {
+public class TrabajosPracticos {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	private Long id;
+	private String nombre;
 	private Date fecha;
-	@OneToMany
-	private List<Alumno>alumnos;
-	@OneToOne
+	@ManyToOne
 	private Materia materia;
-	@OneToOne
+	@ManyToOne
+	private Alumno alumno;
+	@ManyToOne
 	private Docente docente;
-	@OneToOne
-	private Curso curso;
-	private String observaciones;
-	private Boolean asistio=true;
+	
 
 }

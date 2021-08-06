@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.system.model.Curso;
+import com.system.model.Docente;
+import com.system.model.Materia;
 import com.system.model.MateriaDocenteCurso;
 import com.system.repository.MatDocCurRepository;
 @Service
@@ -31,6 +34,16 @@ public class MatDocCurServiceImplement implements MatDocCurService {
 	public void eliminar(MateriaDocenteCurso materiaDocenteCurso) {
 		matDocCurRepository.deleteById(materiaDocenteCurso.getId());
 	}
+
+	@Override
+	public List<MateriaDocenteCurso> buscarDocentePorCurso(Docente docente) {
+		return matDocCurRepository.findByDocente(docente);
+	}
+	@Override
+	public List<MateriaDocenteCurso> buscarMateriaPorDocente(Materia materia, Docente docente, Curso curso) {
+		return matDocCurRepository.findByMateriaAndDocenteAndCurso(materia,docente,curso);
+	}
+
 	
 
 }

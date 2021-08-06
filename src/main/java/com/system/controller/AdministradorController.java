@@ -201,6 +201,7 @@ public class AdministradorController {
 	@GetMapping("/asignar/eliminar/{id}")
 	public String eliminar(@ModelAttribute MateriaDocenteCurso materiaDocenteCurso) {
 		matDocCurService.eliminar(materiaDocenteCurso);
+		
 		return "redirect:/administrador/asignar";
 		
 	}

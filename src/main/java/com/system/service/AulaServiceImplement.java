@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.system.model.Aula;
+import com.system.model.Curso;
 import com.system.repository.AulaRepository;
 @Service
 public class AulaServiceImplement implements AulaService {
@@ -31,6 +32,11 @@ public class AulaServiceImplement implements AulaService {
 	public void eliminar(Aula aula) {
 		aulaRepository.deleteById(aula.getId());
 
+	}
+	
+	@Override
+	public Aula buscarAulaPorCurso(Curso curso) {
+		return aulaRepository.findByCurso(curso);
 	}
 
 	
