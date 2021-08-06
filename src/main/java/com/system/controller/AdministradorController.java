@@ -39,7 +39,6 @@ public class AdministradorController {
 	@Autowired
 	AulaService aulaService;
 	
-	
 	@GetMapping
 	public String admin() {
 		return "administrador";
@@ -106,7 +105,7 @@ public class AdministradorController {
 	@GetMapping("/alumnos/eliminar/{id}")
 	public String eliminarAlumnos(Alumno alumno) {
 		alumnoService.eliminar(alumno);
-		return "agregarAlumno";
+		return "redirect:/administrador/alumnos/crear";
 		
 	}
 	@GetMapping("/cursos/crear")
@@ -163,7 +162,7 @@ public class AdministradorController {
 		return "editarMateria";
 		
 	}
-	@GetMapping("/materias/eliminar")
+	@GetMapping("/materias/eliminar/{id}")
 	public String eliminarMateria(@ModelAttribute Materia materia) {
 		materiaService.eliminar(materia);
 		return "redirect:/administrador/materias/crear";
@@ -199,7 +198,7 @@ public class AdministradorController {
 		return "editarAsignarMaterias";
 		
 	}
-	@GetMapping("/asignar/eliminar")
+	@GetMapping("/asignar/eliminar/{id}")
 	public String eliminar(@ModelAttribute MateriaDocenteCurso materiaDocenteCurso) {
 		matDocCurService.eliminar(materiaDocenteCurso);
 		return "redirect:/administrador/asignar";
@@ -234,7 +233,7 @@ public class AdministradorController {
 		return "editarCompletarAula";
 		
 	}
-	@GetMapping("/completarAula/eliminar")
+	@GetMapping("/completarAula/eliminar/{id}")
 	public String eliminar(@ModelAttribute Aula aula) {
 		aulaService.eliminar(aula);
 		return "redirect:/administrador/completarAula";

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.system.service.AulaService;
 import com.system.service.DocenteService;
 import com.system.service.MatDocCurService;
 
@@ -19,8 +18,6 @@ public class DocenteController {
 	DocenteService docenteService;
 	@Autowired
 	MatDocCurService matDocCurService;
-	@Autowired
-	AulaService aulaService;
 	
 	@GetMapping("{id}")
 	public String indexDocente(Model model,@PathVariable("id") Long id) {
