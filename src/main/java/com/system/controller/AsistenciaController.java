@@ -65,23 +65,25 @@ public class AsistenciaController {
 	}
 	
 	@PostMapping("/guardar")
-	public String guardarAsistencia(@ModelAttribute PasarLista pasarLista, @PathVariable("idDocente") Long idDocente,@PathVariable("idMateria") Long idMateria){
+	public String guardarAsistencia(@ModelAttribute PasarLista pasarLista){
 		
+		Curso curso = cursoService.buscarCursoPorId(pasarLista.getCurso().getId());
+		Materia materia = materiaService.buscarMateriaPorId(pasarLista.getMateria().getId());
 		for (AlumnoAsistenciaDto a : pasarLista.getAlumnos()) {
 			Asistencia asistencia = new Asistencia();
-			Curso curso = cursoService.buscarCursoPorId(pasarLista.getCurso().getId());
-			Materia materia = materiaService.buscarMateriaPorId(pasarLista.getMateria().getId());
 			
+			Alumno alumno = alumnosService.buscarAlumnoPorId(a.getAlumnoId());
+			asistencia.setAlumno(alumno);
 			asistencia.setCurso(curso);
 			asistencia.setFecha(pasarLista.getFecha());
 			asistencia.setMateria(materia);
 			asistencia.setObservaciones(pasarLista.getObservaciones());
 			asistencia.setAsistio(a.getAsistio());
-			asistencia.setAlumno(alumnosService.buscarAlumnoPorId(a.getAlumnoId()));
+			
 			asistenciaService.guardar(asistencia);
 		}
 		
 		
-		return "redirect:/docente/materia/{idDocente}/{idMateria}";
+		return "redirect:/docente/materia/";
 	}
 }

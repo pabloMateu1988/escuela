@@ -19,10 +19,9 @@
 			<div class="card-body">
 				<form th:action="@{/asistencia/guardar}" th:object="${pasarLista}"
 					method="post">
-					<h5 th:field="*{curso}" th:text=${pasarLista.curso.nombre}></h5>
-					<input type="hidden" th:field="*{curso}" id="curso">
-					<h5 th:field="*{materia}" th:text=${pasarLista.materia.nombre}></h5>
-					<input type="hidden" th:field="*{materia}" id="materia">
+					<label>Curso</label> <input type="text" th:field="*{curso.nombre}"
+						id="idCurso" disabled></input> <label>Materia</label> <input
+						type="text" th:field="*{materia.nombre}" id="idMateria" disabled></input>
 					<label>Fecha:</label> <input type="date" th:field="*{fecha}"
 						id="fecha">
 					<table class="table">
@@ -36,12 +35,12 @@
 						</thead>
 						<tbody>
 
-							<tr th:field="*{alumnos}" th:each="al:${pasarLista.alumnos}">
-								<td  th:text=${al.alumnoId}></td>
+							<tr th:each="al:${pasarLista.alumnos}">
+								<td th:text=${al.alumnoId}></td>
 								<td th:text=${al.alumnoNombre}></td>
 								<td><div class="form-check ">
 										<input class="form-check-input" type="checkbox"
-											  checked>
+											th:value="true" id="asistio" checked>
 									</div></td>
 								<td><textarea class="form-control"
 										th:field="*{observaciones}" id="exampleFormControlTextarea1"
@@ -50,7 +49,7 @@
 						</tbody>
 					</table>
 
-					<button type="submit" th:href="@{/asistencia/pasarLista/}"
+					<button type="submit" th:href="@{/asistencia/pasarLista/{idCurso}/{idMateria}(idMateria = ${pasarLista.materia.id}, idCurso = ${pasarLista.curso.id})}"
 						class="btn btn-outline-success">Guardar Asistencia</button>
 				</form>
 			</div>

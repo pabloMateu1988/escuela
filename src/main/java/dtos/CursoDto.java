@@ -5,7 +5,6 @@ import java.util.List;
 public class CursoDto {
 	private Long id;
 	private String nombre;
-	private List<AlumnoAsistenciaDto> asistencias;
 	
 	public Long getId() {
 		return id;
