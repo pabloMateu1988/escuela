@@ -24,7 +24,7 @@
 		<div class="row gx-5 ">
 			<div class="col-3 p-3">
 				<div class="p-3 border bg-light text-center">
-					<a class="btn btn-outline-dark" role="button">Pasar Lista</a>
+					<a class="btn btn-outline-dark" role="button" th:each="m:${materia}" th:href="@{/asistencia/pasarLista/{idCurso}/{idMateria}(idMateria = ${m.materia.id}, idCurso = ${m.curso.id})}">Pasar Lista</a>
 				</div>
 			</div>
 			<div class="col-3 p-3">
