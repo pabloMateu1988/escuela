@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<title>Cursos</title>
+</head>
+<body>
+	<header th:replace="/plantilla/templateAdmin :: header"></header>
+	<div class="container align-center">
+		<div class="card">
+			<div class="card-header text-center">
+				<h1 th:text="*{tituloPrincipal}"></h1>
+			</div>
+			<div class="card-body">
+				<form th:action="@{/administrador/completarAula/guardar}" th:object="${aula}"
+					method="post" class="row g-3">
+					<div class="col-md-4">
+						<label for="curso" class="form-check-label">Curso</label> 
+						<select th:field="*{curso}" class="form-select" aria-label="multiple select example" >
+							<option th:each="c : ${cursos}" selected th:text="${c.nombre} +  ' - ' + ${c.anioLectivo}"
+								th:value="${c.id}">Seleccione el curso</option>
+						</select>
+						<label for="alumno" class="form-check-label">Alumnos</label> 
+						<select th:field="*{alumnos}" class="form-select" aria-label="multiple select example" multiple>
+							<option th:each="c : ${alumnos}" selected th:text="${c.nombre}"
+								th:value="${c.id}">Seleccione el Alumno</option>
+						</select>
+						<label for="materiaDocenteCur" class="form-check-label">Docente-Materias</label> 
+						<select th:field="*{materiaDocenteCurso}" class="form-select" aria-label="multiple select example" multiple>
+							<option th:each="c : ${materiaDocenteCurso}" selected th:text="${c.docente.nombre} + ' - ' + ${c.materia.nombre} +  ' - ' + ${c.curso.nombre} "
+								th:value="${c.id}">Seleccione docente-materia</option>
+						</select>						
+					</div>
+					<button type="submit" th:href="@{/administrador/completarAula}"
+						class="btn btn-outline-success">Guardar Alumnos</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="container col">
+		<div class="row gx-5">
+			<div class="col">
+				<h3 class="text-center" th:text="${tituloLista}"></h3>
+				<div
+					class="border bg-light">
+					<table class="table table-bordered table-striped mb-0">
+						<thead>
+							<tr>
+								<th scope="col">Año</th>
+								<th scope="col">Curso</th>
+								<th scope="col">Alumnos</th>
+								<th scope="col">Docentes</th>
+								<th scope="col">Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="m:${aulas}" >
+								<th scope="row" th:text="${m.curso.anioLectivo}"></th>	
+								<td th:text="${m.curso.nombre}"></td>
+								<td><span th:each="al:${m.alumnos}" th:text="${al.nombre} + ' , ' "></span></td>
+								<td><span th:each="doc:${m.materiaDocenteCurso}" th:text="${doc.docente.nombre} + ' - ' + ${doc.materia.nombre} + ' ; ' "></span></td>
+								<td><a class="btn btn-outline-warning"
+									th:href="@{/administrador/completarAula/editar/}+${m.id}" role="button">Editar</a>
+									<a class="btn btn-outline-danger"
+									th:href="@{/administrador/completarAula/eliminar/}+${m.id}" role="button">Eliminar</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="p-5">
+		<footer th:replace="/plantilla/template :: footer"></footer>
+	</div>
+</body>
+</html>
