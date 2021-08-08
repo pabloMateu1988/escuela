@@ -1,7 +1,8 @@
 package dtos;
 
+import lombok.NoArgsConstructor;
 
-
+@NoArgsConstructor
 public class AlumnoAsistenciaDto {
 	private Long alumnoId;
 	private String  alumnoNombre;

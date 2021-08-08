@@ -10,9 +10,7 @@ import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
@@ -28,6 +26,7 @@ public class Asistencia {
 	private Alumno alumno;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fecha;
+	private Boolean asistio = true;
 	private String observaciones;
 	
 	public Long getId() {
@@ -72,6 +71,6 @@ public class Asistencia {
 	public void setAsistio(Boolean asistio) {
 		this.asistio = asistio;
 	}
-	private Boolean asistio=true;
+	
 
 }

@@ -46,10 +46,11 @@ public class AsistenciaController {
 	@GetMapping("/pasarLista/{curso_id}/{materia_id}")
 	public String asistencia(@PathVariable(value= "curso_id") Long cursoId,@PathVariable(value= "materia_id") Long materiaId, Model model ) {
 		model.addAttribute("tituloPrincipal", "Asistencia");
-		Aula aula = aulaService.buscarAulaPorCurso(cursoService.buscarCursoPorId(cursoId));
-		List<Alumno> alumnos = aula.getAlumnos();
+		
 		Curso curso = cursoService.buscarCursoPorId(cursoId);
 		Materia materia = materiaService.buscarMateriaPorId(materiaId);
+		Aula aula = aulaService.buscarAulaPorCurso(cursoService.buscarCursoPorId(cursoId));
+		List<Alumno> alumnos = aula.getAlumnos();
 		
 		CursoDto cursoDto = new CursoDto(curso.getId(), curso.getNombre());
 		MateriaDto materiaDto = new MateriaDto(materia.getId(), materia.getNombre());
@@ -65,7 +66,7 @@ public class AsistenciaController {
 	}
 	
 	@PostMapping("/guardar")
-	public String guardarAsistencia(@ModelAttribute PasarLista pasarLista){
+	public String guardarAsistencia(@ModelAttribute("pasarLista") PasarLista pasarLista){
 		
 		Curso curso = cursoService.buscarCursoPorId(pasarLista.getCurso().getId());
 		Materia materia = materiaService.buscarMateriaPorId(pasarLista.getMateria().getId());

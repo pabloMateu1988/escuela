@@ -2,6 +2,9 @@ package dtos;
 
 import java.util.List;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class CursoDto {
 	private Long id;
 	private String nombre;

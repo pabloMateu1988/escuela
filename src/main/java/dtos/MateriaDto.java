@@ -1,5 +1,8 @@
 package dtos;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class MateriaDto {
 	private Long id;
 	private String nombre;
