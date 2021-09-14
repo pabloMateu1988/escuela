@@ -1,12 +1,10 @@
 package dtos;
 
 import lombok.NoArgsConstructor;
-
 @NoArgsConstructor
 public class AlumnoAsistenciaDto {
 	private Long alumnoId;
 	private String  alumnoNombre;
-	private Boolean asistio = true;
 	
 	
 	public AlumnoAsistenciaDto(Long alumnoId, String alumnoNombre) {
@@ -25,12 +23,11 @@ public class AlumnoAsistenciaDto {
 	public void setAlumnoNombre(String alumnoNombre) {
 		this.alumnoNombre = alumnoNombre;
 	}
-	public Boolean getAsistio() {
-		return asistio;
+	public String getNombre() {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	public void setAsistio(Boolean asistio) {
-		this.asistio = asistio;
-	}
+
 	
 	
 

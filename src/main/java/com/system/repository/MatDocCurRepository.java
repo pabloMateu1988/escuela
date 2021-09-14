@@ -13,4 +13,5 @@ import com.system.model.MateriaDocenteCurso;
 public interface MatDocCurRepository extends JpaRepository<MateriaDocenteCurso, Long> {
 	List<MateriaDocenteCurso> findByDocente(Docente docente);
 	List<MateriaDocenteCurso> findByMateriaAndDocenteAndCurso(Materia materia, Docente docente, Curso curso);
+	List<MateriaDocenteCurso> findByMateriaAndCurso(Materia materia, Curso curso);
 }

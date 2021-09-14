@@ -19,23 +19,15 @@
 			<div class="card-body">
 				<form th:action="@{/asistencia/guardar}" th:object="${pasarLista}"
 					method="post">
-					<input th:field="*{curso.id}">
-					<input th:field="*{materia.id}" >
-					
 					<h5 th:text=*{curso.nombre}></h5>
-<!-- 					<input type="text" th:field="*{curso.id}" class="form-control" id="curso" -->
-<!-- 							name="curso"> -->
-					<h5 th:text=*{materia.nombre} ></h5>
-<!-- 					<input type="text" th:field="*{materia.id}" class="form-control" id="materia" -->
-<!-- 							name="materia"> -->
-					<label>Fecha:</label> <input type="date" th:field="*{fecha}"
-						id="fecha">
-						<input type="text" th:field="*{alumnos}" class="form-control" id="alumnos"
-							name="alumnos">
+					<h5 th:text=*{materia.nombre}></h5>
+					<input th:field="*{curso.id}" hidden> <input
+						th:field="*{materia.id}" hidden> <input
+						th:field="*{alumnos}" hidden> <label>Fecha:</label> <input
+						type="date" th:field="*{fecha}" id="fecha">
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">#</th>
 								<th scope="col">Apellido y Nombre</th>
 								<th scope="col">Presentismo</th>
 								<th scope="col">Observaciones</th>
@@ -43,23 +35,40 @@
 						</thead>
 						<tbody>
 							<tr th:each="al:${pasarLista.alumnos}">
-								
-								<td  th:text=${al.alumnoId}></td>
-								<td th:text=${al.alumnoNombre}></td>
-								<td><div class="form-check ">
-										<input class="form-check-input" type="checkbox"
-											  checked>
-									</div></td>
+								<td th:text="${al.getNombre()}">
+								<td><select th:field="*{asistio}" class="form-select"
+									aria-label="multiple select example">
+										<option selected
+											th:value="Presente">Presente</option>
+											<option selected
+											th:value="Ausente">Ausente</option>
+									</select>
+								</td>
 								<td><textarea class="form-control"
 										th:field="*{observaciones}" id="exampleFormControlTextarea1"
 										rows="1"></textarea></td>
 							</tr>
 						</tbody>
 					</table>
-
 					<button type="submit" th:href="@{/administrador/}"
 						class="btn btn-outline-success">Guardar Asistencia</button>
 				</form>
+			</div>
+		</div>
+	</div>
+	<div class="container align-center">
+		<div class="card">
+			<div class="card-header text-center">
+				<h1 th:text="${tituloSecundario}"></h1>
+			</div>
+			<div class="card-body" th:each="al:${asistencias}">
+				<div class="col-3 p-3">
+				<div class="p-3 border bg-light text-center">
+					<a class="btn btn-outline-dark" th:text="al.fecha"
+						role="button"></a>
+				</div>
+			</div>
+				
 			</div>
 		</div>
 	</div>

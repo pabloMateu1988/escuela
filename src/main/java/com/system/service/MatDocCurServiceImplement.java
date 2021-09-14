@@ -44,6 +44,11 @@ public class MatDocCurServiceImplement implements MatDocCurService {
 		return matDocCurRepository.findByMateriaAndDocenteAndCurso(materia,docente,curso);
 	}
 
+	@Override
+	public List<MateriaDocenteCurso> buscarDocentePorMateriaCurso(Materia materia, Curso curso) {
+		return matDocCurRepository.findByMateriaAndCurso(materia, curso);
+	}
+
 	
 
 }

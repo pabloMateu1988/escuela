@@ -12,11 +12,13 @@ import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 public class Aula {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

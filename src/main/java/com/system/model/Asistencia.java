@@ -1,6 +1,7 @@
 package com.system.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Asistencia {
 	private Alumno alumno;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fecha;
-	private Boolean asistio = true;
+	private String asistio;
 	private String observaciones;
 	
 	public Long getId() {
@@ -65,10 +66,10 @@ public class Asistencia {
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
-	public Boolean getAsistio() {
+	public String getAsistio() {
 		return asistio;
 	}
-	public void setAsistio(Boolean asistio) {
+	public void setAsistio(String asistio) {
 		this.asistio = asistio;
 	}
 	

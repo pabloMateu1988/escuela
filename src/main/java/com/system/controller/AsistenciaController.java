@@ -1,6 +1,8 @@
 package com.system.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,10 +20,12 @@ import com.system.model.Asistencia;
 import com.system.model.Aula;
 import com.system.model.Curso;
 import com.system.model.Materia;
+import com.system.model.MateriaDocenteCurso;
 import com.system.service.AlumnoService;
 import com.system.service.AsistenciaService;
 import com.system.service.AulaService;
 import com.system.service.CursoService;
+import com.system.service.MatDocCurService;
 import com.system.service.MateriaService;
 
 import dtos.AlumnoAsistenciaDto;
@@ -42,49 +46,61 @@ public class AsistenciaController {
 	AlumnoService alumnosService;
 	@Autowired
 	AsistenciaService asistenciaService;
+	@Autowired
+	MatDocCurService matDocCurService;
 	
 	@GetMapping("/pasarLista/{curso_id}/{materia_id}")
 	public String asistencia(@PathVariable(value= "curso_id") Long cursoId,@PathVariable(value= "materia_id") Long materiaId, Model model ) {
 		model.addAttribute("tituloPrincipal", "Asistencia");
-		
-		Curso curso = cursoService.buscarCursoPorId(cursoId);
-		Materia materia = materiaService.buscarMateriaPorId(materiaId);
+		model.addAttribute("tituloSecundario", "Registro de asistencias");
+		model.addAttribute("asistencias", asistenciaService.listarAsistencias());
 		Aula aula = aulaService.buscarAulaPorCurso(cursoService.buscarCursoPorId(cursoId));
 		List<Alumno> alumnos = aula.getAlumnos();
+		Curso curso = cursoService.buscarCursoPorId(cursoId);
+		Materia materia = materiaService.buscarMateriaPorId(materiaId);
 		
 		CursoDto cursoDto = new CursoDto(curso.getId(), curso.getNombre());
 		MateriaDto materiaDto = new MateriaDto(materia.getId(), materia.getNombre());
 		
-		List<AlumnoAsistenciaDto> listaAlumnosDto = alumnos.stream().map(a -> new AlumnoAsistenciaDto(a.getId(), a.getNombre())).collect(Collectors.toList());
-		String observaciones="";
-		PasarLista pasarLista = new PasarLista(new Date(), cursoDto, materiaDto, listaAlumnosDto, observaciones);
+		List<AlumnoAsistenciaDto> alu = new ArrayList<>();
+		for (Alumno a : alumnos) {
+		alu.add(new AlumnoAsistenciaDto(a.getId(), a.getNombre()));
+		}
+		
+		List<String> observaciones = null;
+		PasarLista pasarLista = new PasarLista(new Date(), cursoDto, materiaDto, aula.getAlumnos(), observaciones);
 		
 		model.addAttribute("pasarLista", pasarLista);
 		
-		return "asistencia";
+		return "control_asistencia";
 		
 	}
 	
 	@PostMapping("/guardar")
-	public String guardarAsistencia(@ModelAttribute("pasarLista") PasarLista pasarLista){
+	public String guardarAsistencia(@ModelAttribute("pasarLista") PasarLista pasarLista, Model model){
 		
 		Curso curso = cursoService.buscarCursoPorId(pasarLista.getCurso().getId());
 		Materia materia = materiaService.buscarMateriaPorId(pasarLista.getMateria().getId());
-		for (AlumnoAsistenciaDto a : pasarLista.getAlumnos()) {
-			Asistencia asistencia = new Asistencia();
+		int i = 0;
+		for (Alumno a : pasarLista.getAlumnos()) {
 			
-			Alumno alumno = alumnosService.buscarAlumnoPorId(a.getAlumnoId());
-			asistencia.setAlumno(alumno);
-			asistencia.setCurso(curso);
-			asistencia.setFecha(pasarLista.getFecha());
-			asistencia.setMateria(materia);
-			asistencia.setObservaciones(pasarLista.getObservaciones());
-			asistencia.setAsistio(a.getAsistio());
+				Asistencia asistencia = new Asistencia();
+				
+				Alumno alumno = alumnosService.buscarAlumnoPorId(a.getId());
+				asistencia.setAlumno(alumno);
+				asistencia.setCurso(curso);
+				asistencia.setFecha(pasarLista.getFecha());
+				asistencia.setMateria(materia);
+				asistencia.setObservaciones(pasarLista.getObservaciones().get(i));
+				asistencia.setAsistio(pasarLista.getAsistio().get(i));
+				
+				asistenciaService.guardar(asistencia);
+				i++;
 			
-			asistenciaService.guardar(asistencia);
 		}
 		
 		
-		return "redirect:/docente/materia/";
+		
+		return "redirect:/docente/1";
 	}
 }

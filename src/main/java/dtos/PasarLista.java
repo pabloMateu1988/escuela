@@ -1,19 +1,24 @@
 package dtos;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.system.model.Alumno;
+
 public class PasarLista {
+
+	private List<Alumno>alumnos = new ArrayList<>();
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fecha;
 	private CursoDto curso;
 	private MateriaDto materia;
-	private List<AlumnoAsistenciaDto>alumnos;
-	private String observaciones="";
+	private List<String> asistio;
+	private List<String> observaciones;
 	
-	public PasarLista(Date fecha, CursoDto curso, MateriaDto materia, List<AlumnoAsistenciaDto> alumnos, String observaciones) {
+	public PasarLista(Date fecha, CursoDto curso, MateriaDto materia, List<Alumno> alumnos, List<String>observaciones) {
 		this.fecha = fecha;
 		this.curso = curso;
 		this.materia = materia;
@@ -38,17 +43,23 @@ public class PasarLista {
 	public void setMateria(MateriaDto materia) {
 		this.materia = materia;
 	}
-	public List<AlumnoAsistenciaDto> getAlumnos() {
+	public List<Alumno> getAlumnos() {
 		return alumnos;
 	}
-	public void setAlumnos(List<AlumnoAsistenciaDto> alumnos) {
+	public void setAlumnos(List<Alumno> alumnos) {
 		this.alumnos = alumnos;
 	}
-	public String getObservaciones() {
+	public List<String> getObservaciones() {
 		return observaciones;
 	}
-	public void setObservaciones(String observaciones) {
+	public void setObservaciones(List<String> observaciones) {
 		this.observaciones = observaciones;
+	}
+	public List<String> getAsistio() {
+		return asistio;
+	}
+	public void setAsistio(List<String> asistio) {
+		this.asistio = asistio;
 	}
 	
 	

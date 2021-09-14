@@ -16,5 +16,6 @@ public interface MatDocCurService {
 	public void eliminar(MateriaDocenteCurso materiaDocenteCurso);
 	List<MateriaDocenteCurso> buscarDocentePorCurso(Docente docente);
 	List<MateriaDocenteCurso> buscarMateriaPorDocente(Materia materia, Docente docente, Curso curso);
+	List<MateriaDocenteCurso> buscarDocentePorMateriaCurso(Materia materia, Curso curso);
 
 }

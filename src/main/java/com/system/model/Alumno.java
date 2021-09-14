@@ -15,4 +15,6 @@ import lombok.Setter;
 public class Alumno extends Persona {
 	private static final long serialVersionUID = 1L;
 
+
+
 }
